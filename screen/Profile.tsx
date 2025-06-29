@@ -182,7 +182,7 @@ export default function ProfileScreen() {
     }
   };
 
-  const handleNavigateToIndex = () => navigator.navigate('Home');
+  const handleNavigateToIndex = () => navigator.navigate('Layout');
 
   useEffect(() => {
     fetchTokenAndCallProfile();

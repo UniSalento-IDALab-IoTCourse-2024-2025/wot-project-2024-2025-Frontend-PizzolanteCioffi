@@ -19,7 +19,6 @@ import {BarChart} from 'react-native-chart-kit';
 import Icon from 'react-native-vector-icons';
 import Cylinder from './Cylinder';
 import MapView, { Marker, UrlTile } from 'react-native-maps';
-//import { Cylinder } from 'lucide-react-native';
 
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<
@@ -186,22 +185,13 @@ const scheme = useColorScheme();
     }
   }, [invokeUrl]);
 
-  /*
-  // Ora uso useFocusEffect per eseguire fetch ogni volta che la pagina diventa visibile
-  useFocusEffect(
-    useCallback(() => {
-      getPatientIdAndFetchData();
-    }, [getPatientIdAndFetchData])
-  );
-  */
-
   useFocusEffect(
   useCallback(() => {
     const timeoutId = setTimeout(() => {
       getPatientIdAndFetchData();
-    }, 300); // piccolo delay di 300ms
+    }, 300); 
 
-    return () => clearTimeout(timeoutId); // pulizia se si cambia schermata
+    return () => clearTimeout(timeoutId); 
   }, [getPatientIdAndFetchData])
 );
 

@@ -53,12 +53,10 @@ export default function App() {
         body: remoteMessage.notification?.body ?? '',
         android: {
           channelId: 'default_channel',
-          // puoi aggiungere sound, smallIcon ecc se vuoi
         },
       });
     });
 
-    // Cleanup listener alla disattivazione del componente
     return () => unsubscribe();
   }, []);
 

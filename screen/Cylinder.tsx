@@ -23,7 +23,6 @@ const Cylinder = ({
 
   return (
     <Svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
-      {/* Base superiore (solo contorno, senza fill) */}
       <Ellipse
         cx={width / 2}
         cy={padding + ellipseRy}
@@ -34,7 +33,6 @@ const Cylinder = ({
         fill="none"
       />
 
-      {/* Linee verticali laterali */}
       <Line
         x1={padding + strokeWidth / 2}
         y1={padding + ellipseRy}
@@ -52,7 +50,6 @@ const Cylinder = ({
         strokeWidth={strokeWidth}
       />
 
-      {/* Base inferiore: riempita e contorno */}
       <Ellipse
         cx={width / 2}
         cy={padding + ellipseRy + bodyHeight}
@@ -63,7 +60,6 @@ const Cylinder = ({
         fill={color}
       />
 
-      {/* Definizione clipPath per riempimento dinamico */}
       <Defs>
         <ClipPath id="clipBody">
           <Rect
@@ -75,7 +71,6 @@ const Cylinder = ({
         </ClipPath>
       </Defs>
 
-      {/* Riempimento */}
       <Rect
         x={padding + strokeWidth / 2}
         y={padding + ellipseRy}

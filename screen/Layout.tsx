@@ -24,21 +24,6 @@ type LayoutScreenNavigationProp = NativeStackNavigationProp<
 
 const requestLocationPermission = async (): Promise<boolean> => {
   if (Platform.OS === 'android') {
-    // Richiedi ACCESS_FINE_LOCATION
-    const fineLocationGranted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      {
-        title: 'Permesso posizione',
-        message: "L'app ha bisogno di accedere alla tua posizione.",
-        buttonPositive: 'OK',
-      }
-    );
-
-    if (fineLocationGranted !== PermissionsAndroid.RESULTS.GRANTED) {
-      return false; // permesso negato
-    }
-
-    // Per Android 10+ (API 29+), richiedi anche ACCESS_BACKGROUND_LOCATION
     if (Platform.Version >= 29) {
       const backgroundLocationGranted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_BACKGROUND_LOCATION,
