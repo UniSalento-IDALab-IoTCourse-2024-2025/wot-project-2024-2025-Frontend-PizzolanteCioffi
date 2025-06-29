@@ -85,6 +85,7 @@ yarn-error.log
 android/app/build/
 android/build/
 android/.gradle/
+android/gradle.properties
 android/.idea/
 android/captures/
 
