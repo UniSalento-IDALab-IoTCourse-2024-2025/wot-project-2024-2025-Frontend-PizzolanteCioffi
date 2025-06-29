@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "598461964978",
+    "project_id": "smartwatchnotification-147ee",
+    "storage_bucket": "smartwatchnotification-147ee.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598461964978:android:77269b7f37ccd830895fab",
+        "android_client_info": {
+          "package_name": "com.watchapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2o_QbGG244HlL3ZdOvI9L2lgCqSITrtA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
