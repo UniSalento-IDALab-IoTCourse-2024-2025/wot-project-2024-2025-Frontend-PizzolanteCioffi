@@ -15,6 +15,8 @@ import {
   UIManager,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useFocusEffect } from '@react-navigation/native';
+
 
 if (Platform.OS === 'android') {
   UIManager.setLayoutAnimationEnabledExperimental &&
@@ -47,8 +49,9 @@ export default function Behaviour() {
   const [expanded, setExpanded] = useState<boolean>(false);
   const invokeUrl = 'https://1dkrfof8di.execute-api.us-east-1.amazonaws.com/dev';
 
-  useEffect(() => {
-    const fetchBehaviour = async () => {
+  useFocusEffect(
+    React.useCallback( () =>{
+      const fetchBehaviour = async () => {
       const token = await AsyncStorage.getItem('authToken');
       const decodedToken = parseJwt(token || '');
       const id = decodedToken?.userId;
@@ -74,7 +77,8 @@ export default function Behaviour() {
     };
 
     fetchBehaviour();
-  }, []);
+  }, [])
+  );
 
   const renderFaceIcon = () => {
     let iconName = 'emoticon-neutral';
