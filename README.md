@@ -63,7 +63,7 @@ Per la gestione degli stili, delle configurazioni di build e dell’ambiente di 
 ### Profile 
 All’interno della schermata Home, l’utente può visualizzare e modificare i propri dati personali. Se l’utente ha il ruolo di caregiver, viene inoltre resa disponibile un’opzione per eliminare sia il proprio profilo che quello del paziente associato.
 
-<p align="center"> <img src="https://github.com/user-attachments/assets/141f7e4e-209a-4f30-bf94-789f3a3dc2bb" alt="Profilo Utente" width="250"/> <img src="https://github.com/user-attachments/assets/03abbe42-fd45-49a3-a770-cd969d63aaba" alt="Visualizza Profilo" width="250"/> </p>
+<p align="center"> <img src="https://github.com/user-attachments/assets/03abbe42-fd45-49a3-a770-cd969d63aaba" alt="Profilo Utente" width="250"/> <img src="https://github.com/user-attachments/assets/141f7e4e-209a-4f30-bf94-789f3a3dc2bb" alt="Visualizza Profilo" width="250"/> </p>
 
 
 ### Behaviour
