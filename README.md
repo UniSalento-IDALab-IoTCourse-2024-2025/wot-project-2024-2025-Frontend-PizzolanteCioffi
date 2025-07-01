@@ -1,97 +1,73 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# WatchApp
+## Descrizione del progetto
 
-# Getting Started
+Questo progetto nasce con l’obiettivo di sviluppare un sistema intelligente, innovativo e non invasivo per il monitoraggio continuo di pazienti affetti da malattie neurodegenerative come Alzheimer, Parkinson o SLA.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+Utilizzando uno smartwatch, il sistema raccoglie automaticamente dati vitali e comportamentali, tra cui frequenza cardiaca, sonno, tempo passato all’esterno e minuti di conversazione telefonica. Questi dati vengono trasmessi via **Bluetooth Low Energy (BLE)** a uno smartphone, che funge da gateway verso il **cloud**, dove sono elaborati da algoritmi di intelligenza artificiale.
 
-## Step 1: Start Metro
+Il sistema è progettato per:
+- Rilevare segnali di deterioramento sociale;
+- Notificare il paziente in caso di comportamenti anomali;
+- Allertare caregiver in caso di persistenza del problema;
+- Visualizzare lo stato clinico in tempo del paziente attraverso una dashboard intuitiva.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+Questa soluzione è progettata per garantire:
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- Facilità d’uso, anche da parte di utenti anziani o con capacità cognitive ridotte;
+- Basso costo di implementazione e scalabilità per l’adozione su larga scala;
+- Sicurezza e tutela della privacy, nella gestione dei dati sensibili raccolti.
+## Architettura del Sistema
 
-```sh
-# Using npm
-npm start
+Il sistema è progettato secondo un’architettura a microservizi, scalabile e modulare, che consente la gestione indipendente dei diversi componenti funzionali. L’infrastruttura si basa su servizi backend containerizzati (Docker) e su un'app mobile utilizzata dal paziente.
 
-# OR using Yarn
-yarn start
-```
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e789da38-c2d2-4d80-9cba-3dfba9060f5c" alt="Architettura del sistema" width="600"/>
+</p>
 
-## Step 2: Build and run your app
+### Servizi Backend
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+- **User Service**: è responsabile della gestione degli utenti all'interno del sistema. In particolare, si occupa delle operazioni di registrazione, autenticazione, autorizzazione e aggiornamento dei dati di profilo. È il primo punto di contatto per l’accesso ai servizi dell’applicazione, e garantisce che ogni richiesta sia associata a un utente valido.
 
-### Android
+- **DataCollector Service**: ha il compito di ricevere, filtrare e memorizzare i dati raccolti dallo smartwatch e dallo smartphone del paziente. I dati includono informazioni biometriche (come la frequenza cardiaca), dati di posizione, durata delle chiamate e dati relativi al sonno. Questo microservizio rappresenta il punto di ingresso dei dati grezzi nel sistema.
 
-```sh
-# Using npm
-npm run android
+- **DataPrediction Service**: è responsabile dell’elaborazione dei dati aggregati relativi allo stato fisico e sociale dell’utente, comprendente sia aspetti comportamentali (quali i minuti trascorsi fuori casa) sia parametri fisici (quali la frequenza cardiaca, la durata del sonno e delle chiamate). L’obiettivo è produrre una valutazione complessiva tramite il modello di intelligenza artificiale, utile per monitorare la socialità e il benessere generale del paziente.
+In particolare DataPrediction prende i dati aggregati da DataCollector, li riorganizza e li struttura secondo il formato previsto dal modello, richiamando poi il microservizio Python dedicato all’inferenza. Il risultato dell’elaborazione è una stima del comportamento sociale dell’utente “behaviour” (che può essere buono, normale o cattivo rispettivamente) in base ai dati più recenti raccolti dal sistema.
 
-# OR using Yarn
-yarn android
-```
+- **AIModel Service**: è il componente responsabile dell’elaborazione predittiva finale all’interno del sistema. Il suo compito principale consiste nell’analizzare un insieme eterogeneo di dati raccolti quotidianamente per ogni paziente (frequenza cardiaca, durata delle chiamate, durata del sonno, spostamenti) e fornire una valutazione del comportamento sociale dell’utente sotto forma di etichetta predittiva (label).
 
-### iOS
+- **Notification Service**: si occupa della gestione delle notifiche inviate agli assistenti o agli utenti del sistema. Le notifiche possono riguardare, ad esempio, la registrazione dell’utente, la conferma di eventi importanti o l’avviso di situazioni di bassa socialità rilevate dal modello predittivo. Le notifiche vengono salvate nel database e sono consultabili attraverso apposite interfacce o endpoint dedicati.
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+### Frontend Mobile
 
-```sh
-bundle install
-```
+- **Applicazione mobile (frontend)**  
+Il frontend mobile dell’applicazione è stato sviluppato in React Native ed è progettato per operare su dispositivi Android, in quanto alcune funzionalità fondamentali, come l’accesso al registro delle chiamate, richiedono permessi speciali non disponibili su iOS.
+L’applicazione consente all’utente di visualizzare in tempo reale i dati raccolti durante la giornata corrente (frequenza cardiaca, ore totali di sonno, posizione e durata chiamate), oltre a eventuali notifiche o segnalazioni provenienti dai modelli di intelligenza artificiale. 
 
-Then, and every time you update your native dependencies, run:
+## Repositori dei componenti
 
-```sh
-bundle exec pod install
-```
+- User Service: [User](https://github.com/UniSalento-IDALab-IoTCourse-2024-2025/wot-project-2024-2025-User-PizzolanteCioffi)
+- DataCollector Service: [DataCollector](https://github.com/UniSalento-IDALab-IoTCourse-2024-2025/wot-project-2024-2025-DataCollector-PizzolanteCioffi)
+- DataPrediction Service: [DataPrediction](https://github.com/UniSalento-IDALab-IoTCourse-2024-2025/wot-project-2024-2025-DataPrediction-PizzolanteCioffi)
+- Notification Service: [Notification](https://github.com/UniSalento-IDALab-IoTCourse-2024-2025/wot-project-2024-2025-Notification-PizzolanteCioffi)
+- AIModel Service: [AIModel](https://github.com/UniSalento-IDALab-IoTCourse-2024-2025/wot-project-2024-2025-AIModel-PizzolanteCioffi)
+- Frontend: [Frontend](https://github.com/UniSalento-IDALab-IoTCourse-2024-2025/wot-project-2024-2025-Frontend-PizzolanteCioffi)
+- Pagina web: [Presentation](https://github.com/UniSalento-IDALab-IoTCourse-2024-2025/wot-project-2024-2025-Presentation-PizzolanteCioffi)
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+## FrontEnd
 
-```sh
-# Using npm
-npm run ios
+L’applicazione consente all’utente di visualizzare in tempo reale i dati raccolti durante la giornata corrente (frequenza cardiaca, ore totali di sonno, posizione e durata chiamate), oltre a eventuali notifiche o segnalazioni provenienti dai modelli di intelligenza artificiale. Il Frontend si interfaccia con il Backend attraverso API RESTful sicure, mentre per la ricezione di notifiche push viene utilizzato Firebase Cloud Messaging (FCM).
+L’interfaccia è progettata per essere semplice e intuitiva, con schermate dedicate alla visualizzazione dei dati, alla modifica dei dati ed in particolare un’intera schermata dedicata al comportamento (behaviour) del paziente. Il codice dell’app è organizzato in moduli e componenti riutilizzabili, facilitando la manutenzione e l’estensione futura.
+Per la gestione degli stili, delle configurazioni di build e dell’ambiente di sviluppo, sono stati utilizzati strumenti consolidati della piattaforma React Native. L’adozione di un approccio modulare e scalabile ha permesso di integrare facilmente nuove funzionalità e di mantenere un elevato livello di qualità del codice durante tutte le fasi del progetto.
 
-# OR using Yarn
-yarn ios
-```
+### Profile 
+All’interno della schermata Home, l’utente può visualizzare e modificare i propri dati personali. Se l’utente ha il ruolo di caregiver, viene inoltre resa disponibile un’opzione per eliminare sia il proprio profilo che quello del paziente associato.
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+<p align="center"> <img src="https://github.com/user-attachments/assets/141f7e4e-209a-4f30-bf94-789f3a3dc2bb" alt="Profilo Utente" width="250"/> <img src="https://github.com/user-attachments/assets/03abbe42-fd45-49a3-a770-cd969d63aaba" alt="Visualizza Profilo" width="250"/> </p>
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
 
-## Step 3: Modify your app
+### Behaviour
+Nella sezione di Behaviour, è possibile visualizzare lo stato di socialità del paziente e dei consigli di supporto.
 
-Now that you have successfully run the app, let's make changes!
+<p align="center"> <img src="https://github.com/user-attachments/assets/8cbc06e6-a620-4ba6-bce7-e494decd3969" alt="Behaviour 1" width="250"/> <img src="https://github.com/user-attachments/assets/fb16ce08-fab7-4f11-af31-6b58fd19c297" alt="Behaviour 2" width="250"/> <img src="https://github.com/user-attachments/assets/0ad9fb41-305e-4b21-b98d-60bb611c20eb" alt="Behaviour 3" width="250"/> </p>
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
